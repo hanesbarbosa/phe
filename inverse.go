@@ -26,7 +26,7 @@ func Numerator(m Multivector, q *big.Int) Multivector {
 // 	return r.E0.Num().String()
 // }
 
-// Denominator to be defined.
+// DenominatorInverse to be defined.
 func DenominatorInverse(m Multivector, q *big.Int) *big.Int {
 	d := Rationalize(m, q).E0
 	di := d.ModInverse(d, q)
