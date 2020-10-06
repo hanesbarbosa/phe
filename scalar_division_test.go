@@ -12,7 +12,8 @@ func TestScalarDivision(t *testing.T) {
 
 	m := New(c)
 	q := big.NewInt(257)
-	m = ScalarDivision(m, "12", q)
+	s := big.NewInt(12)
+	m = ScalarDivision(m, s, q)
 
 	if strings.Compare(m.E0.String(), "43") != 0 ||
 		strings.Compare(m.E1.String(), "193") != 0 ||
