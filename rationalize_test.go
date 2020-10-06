@@ -1,18 +1,20 @@
 package phe
 
 import (
+	"math/big"
 	"strings"
 	"testing"
 )
 
 // Tests if the rationalized multivector is calculated properly.
 func TestRationalize(t *testing.T) {
-	c := []string{"40", "-29", "29", "-25", "33", "-29", "32", "-28"}
+	c := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 
 	m := New(c)
-	m = Rationalize(m)
+	q := big.NewInt(257)
+	m = Rationalize(m, q)
 
-	if strings.Compare(m.E0.String(), "2313425") != 0 ||
+	if strings.Compare(m.E0.String(), "226") != 0 ||
 		strings.Compare(m.E1.String(), "0") != 0 ||
 		strings.Compare(m.E2.String(), "0") != 0 ||
 		strings.Compare(m.E3.String(), "0") != 0 ||

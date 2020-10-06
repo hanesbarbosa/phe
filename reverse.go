@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // Reverse of a multivector.
-func Reverse(m Multivector) Multivector {
+func Reverse(m Multivector, q *big.Int) Multivector {
 	// pf = positive factor
 	pf := new(big.Int)
 	pf.SetString("1", 10)
@@ -21,5 +21,5 @@ func Reverse(m Multivector) Multivector {
 	m.E23.Mul(pf, m.E23)
 	m.E123.Mul(nf, m.E123)
 
-	return m
+	return ModularMultivector(m, q)
 }

@@ -5,7 +5,7 @@ import (
 )
 
 // CliffordConjugation gives the clifford of a multivector.
-func CliffordConjugation(m Multivector) Multivector {
+func CliffordConjugation(m Multivector, q *big.Int) Multivector {
 	// pf = positive factor
 	pf := new(big.Int)
 	pf.SetString("1", 10)
@@ -23,5 +23,5 @@ func CliffordConjugation(m Multivector) Multivector {
 	m.E23.Mul(nf, m.E23)
 	m.E123.Mul(pf, m.E123)
 
-	return m
+	return ModularMultivector(m, q)
 }
