@@ -1,6 +1,8 @@
 package phe
 
-import "math/big"
+import (
+	"math/big"
+)
 
 // Encrypt ...
 func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
@@ -34,7 +36,7 @@ func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
 }
 
 // Decrypt ...
-func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Int {
+func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Rat {
 	k1i := Inverse(sk.k1, pk.q)
 	k2i := Inverse(sk.k2, pk.q)
 	cg := GeometricProduct(k1i, c, pk.q)
@@ -51,5 +53,56 @@ func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Int {
 	s.Sub(s, mv.E123)
 	s.Mod(s, pk.q)
 
-	return s
+	return ExtendedEuclideanAlgorithm(pk.q, s)
+}
+
+// ExtendedEuclideanAlgorithm does...
+func ExtendedEuclideanAlgorithm(p, c *big.Int) *big.Rat {
+	var a, b []*big.Int
+	var i int
+
+	a = append(a, p)
+	a = append(a, c)
+	b = append(b, big.NewInt(0))
+	b = append(b, big.NewInt(1))
+	i = 1
+	q := big.NewInt(0)
+
+	f := big.NewRat(1, 2)
+	f.SetString(p.String() + "/2")
+
+	fl := big.NewFloat(0.0)
+	fl.SetRat(f)
+	fl.Sqrt(fl)
+	var z *big.Int
+	z, _ = fl.Int(z)
+
+	// Loop
+	// +1 if ai > floor(sqrt(p/2))
+	for a[i].Cmp(z) == 1 {
+		// q = floor(a[i-1]/a[i])
+		q.Div(a[i-1], a[i])
+
+		// a[i+1] = a[i-1] - q * a[i]
+		// First: creates a big number on the next position.
+		// Second: uses the Sub() function of the early created big number
+		a = append(a, big.NewInt(0))
+		a[i+1].Sub(a[i-1], a[i+1].Mul(q, a[i]))
+
+		// b[i+1] = b[i-1] + q * b[i]
+		b = append(b, big.NewInt(0))
+		b[i+1].Add(b[i-1], b[i+1].Mul(q, b[i]))
+
+		i = i + 1
+	}
+
+	// Creates a[i]/b[i] big rational
+	m := big.NewRat(1, 1)
+	m, success := m.SetString(a[i].String() + "/" + b[i].String())
+	if !success {
+		// Raise exception and abort
+		panic("error converting m into big rational")
+	}
+
+	return m
 }
