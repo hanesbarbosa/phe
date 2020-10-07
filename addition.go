@@ -1,7 +1,7 @@
 package phe
 
 // Addition sums two multivectors
-func Addition(pk PK, m1, m2 Multivector) Multivector {
+func Addition(pk PublicKey, m1, m2 Multivector) Multivector {
 	m := NewMultivector([]string{"0", "0", "0", "0", "0", "0", "0", "0"})
 
 	m.E0.Add(m1.E0, m2.E0)
