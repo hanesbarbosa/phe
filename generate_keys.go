@@ -26,11 +26,13 @@ func GenerateKeys(l int64) (SK, PK) {
 
 	b = l / 8
 
-	g.SetString(GenerateIntegers(b, 1)[0], 10)
+	g = GenerateIntegers(b, 1)[0]
 	q := GeneratePrime(b)
 
-	k1m := NewMultivector(GenerateIntegers(b, 8))
-	k2m := NewMultivector(GenerateIntegers(b, 8))
+	k1s := GenerateIntegers(b, 8)
+	k2s := GenerateIntegers(b, 8)
+	k1m := NewMultivector([]string{k1s[0].String(), k1s[1].String(), k1s[2].String(), k1s[3].String(), k1s[4].String(), k1s[5].String(), k1s[6].String(), k1s[7].String()})
+	k2m := NewMultivector([]string{k2s[0].String(), k2s[1].String(), k2s[2].String(), k2s[3].String(), k2s[4].String(), k2s[5].String(), k2s[6].String(), k2s[7].String()})
 
 	sk := SK{k1: k1m, k2: k2m, g: g}
 	pk := PK{b: b, q: q}
@@ -39,15 +41,15 @@ func GenerateKeys(l int64) (SK, PK) {
 }
 
 // GenerateIntegers ...
-func GenerateIntegers(b int64, n int) []string {
+func GenerateIntegers(b int64, n int) []*big.Int {
 	// n cannot be 0
-	var s []string
+	var s []*big.Int
 	var i *big.Int
 	max := int64(math.Pow(float64(2), float64(b)))
 
 	for len(s) < n {
 		i, _ = rand.Int(rand.Reader, big.NewInt(max))
-		s = append(s, i.String())
+		s = append(s, i)
 	}
 
 	return s

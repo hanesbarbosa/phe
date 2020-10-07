@@ -1,18 +1,17 @@
 package phe
 
 import (
-	"fmt"
 	"testing"
 )
 
 // TestGenerateKeys...
 func TestGenerateKeys(t *testing.T) {
-	pk, sk := GenerateKeys(128)
-	// PK
-	fmt.Println("pk.k1 = ", pk.k1.ToString())
-	fmt.Println("pk.k2 = ", pk.k2.ToString())
-	fmt.Println("pk.g = ", pk.g.String())
-	// SK
-	fmt.Println("sk.b = ", sk.b)
-	fmt.Println("sk.q = ", sk.q)
+	// sk, pk := GenerateKeys(128)
+	// // SK
+	// fmt.Println("sk.k1 = ", sk.k1.ToString())
+	// fmt.Println("sk.k2 = ", sk.k2.ToString())
+	// fmt.Println("sk.g = ", sk.g.String())
+	// // PK
+	// fmt.Println("pk.b = ", pk.b)
+	// fmt.Println("pk.q = ", pk.q)
 }
