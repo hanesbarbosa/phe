@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // Encrypt ...
-func Encrypt(sk SK, pk PK, m *big.Int) Multivector {
+func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
 	// m0,...,m123 with the exception of m12
 	s := GenerateIntegers(pk.b, 8)
 	n := []string{s[0].String(), s[1].String(), s[2].String(), s[3].String(), s[4].String(), s[5].String(), s[6].String(), s[7].String()}
@@ -34,7 +34,7 @@ func Encrypt(sk SK, pk PK, m *big.Int) Multivector {
 }
 
 // Decrypt ...
-func Decrypt(sk SK, pk PK, c Multivector) *big.Int {
+func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Int {
 	k1i := Inverse(sk.k1, pk.q)
 	k2i := Inverse(sk.k2, pk.q)
 	cg := GeometricProduct(k1i, c, pk.q)
