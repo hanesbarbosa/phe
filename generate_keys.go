@@ -22,41 +22,32 @@ type PK struct {
 // GenerateKeys generates a secret key tuple SK and a public key tuple PK
 func GenerateKeys(l int64) (SK, PK) {
 	var b int64
+	var g = new(big.Int)
+
 	b = l / 8
 
-	k1i := GenerateIntegers(b, 8)
-	k2i := GenerateIntegers(b, 8)
-	g := GenerateIntegers(b, 1)[0]
+	g.SetString(GenerateIntegers(b, 1)[0], 10)
 	q := GeneratePrime(b)
 
-	k1m := NewMultivector([]string{k1i[0].String(), k1i[1].String(), k1i[2].String(), k1i[3].String(), k1i[4].String(), k1i[5].String(), k1i[6].String(), k1i[7].String()})
-	k2m := NewMultivector([]string{k2i[0].String(), k2i[1].String(), k2i[2].String(), k2i[3].String(), k2i[4].String(), k2i[5].String(), k2i[6].String(), k2i[7].String()})
+	k1m := NewMultivector(GenerateIntegers(b, 8))
+	k2m := NewMultivector(GenerateIntegers(b, 8))
 
 	sk := SK{k1: k1m, k2: k2m, g: g}
 	pk := PK{b: b, q: q}
 
-	// fmt.Println("SK = ", sk)
-	// fmt.Println("PK = ", pk)
-	// fmt.Println("b=", b)
-	// fmt.Println("g=", g)
-	// fmt.Println("q=", q)
-	// fmt.Println("k1=", k1)
-	// fmt.Println("k2=", k2)
-	// sk := new(SK)
-	// pk := new(PK)
 	return sk, pk
 }
 
 // GenerateIntegers ...
-func GenerateIntegers(b int64, n int) []*big.Int {
+func GenerateIntegers(b int64, n int) []string {
 	// n cannot be 0
-	var s []*big.Int
+	var s []string
 	var i *big.Int
 	max := int64(math.Pow(float64(2), float64(b)))
 
 	for len(s) < n {
 		i, _ = rand.Int(rand.Reader, big.NewInt(max))
-		s = append(s, i)
+		s = append(s, i.String())
 	}
 
 	return s

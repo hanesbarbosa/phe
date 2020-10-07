@@ -1,15 +1,18 @@
 package phe
 
 import (
+	"fmt"
 	"testing"
 )
 
 // TestGenerateKeys...
 func TestGenerateKeys(t *testing.T) {
-	GenerateKeys(128)
-	// for i := 0; i < 3; i++ {
-	// 	result, _ := rand.Int(rand.Reader, big.NewInt(100))
-	// 	fmt.Println(result)
-	// }
-	//t.Errorf("Wrong results for the scalar multiplication calculation.")
+	pk, sk := GenerateKeys(128)
+	// PK
+	fmt.Println("pk.k1 = ", pk.k1.ToString())
+	fmt.Println("pk.k2 = ", pk.k2.ToString())
+	fmt.Println("pk.g = ", pk.g.String())
+	// SK
+	fmt.Println("sk.b = ", sk.b)
+	fmt.Println("sk.q = ", sk.q)
 }
