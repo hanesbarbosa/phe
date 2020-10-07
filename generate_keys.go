@@ -6,36 +6,42 @@ import (
 	"math/big"
 )
 
-// SK is the secret key structure
-type SK struct {
+// SecretKey is the secret key structure
+type SecretKey struct {
 	k1 Multivector
 	k2 Multivector
 	g  *big.Int
 }
 
-// PK is the public key structure
-type PK struct {
+// PublicKey is the public key structure
+type PublicKey struct {
 	b int64
 	q *big.Int
 }
 
 // GenerateKeys generates a secret key tuple SK and a public key tuple PK
-func GenerateKeys(l int64) (SK, PK) {
+func GenerateKeys(l int64) (SecretKey, PublicKey) {
 	var b int64
+	var k []Multivector
+	var ki []*big.Int
+	var km Multivector
 	var g = new(big.Int)
 
 	b = l / 8
-
 	g = GenerateIntegers(b, 1)[0]
 	q := GeneratePrime(b)
 
-	k1s := GenerateIntegers(b, 8)
-	k2s := GenerateIntegers(b, 8)
-	k1m := NewMultivector([]string{k1s[0].String(), k1s[1].String(), k1s[2].String(), k1s[3].String(), k1s[4].String(), k1s[5].String(), k1s[6].String(), k1s[7].String()})
-	k2m := NewMultivector([]string{k2s[0].String(), k2s[1].String(), k2s[2].String(), k2s[3].String(), k2s[4].String(), k2s[5].String(), k2s[6].String(), k2s[7].String()})
+	// Until both randomized keys k1 and k2 have inverse
+	for len(k) < 2 {
+		ki = GenerateIntegers(b, 8)
+		km = NewMultivector([]string{ki[0].String(), ki[1].String(), ki[2].String(), ki[3].String(), ki[4].String(), ki[5].String(), ki[6].String(), ki[7].String()})
+		if HasInverse(km, q) {
+			k = append(k, km)
+		}
+	}
 
-	sk := SK{k1: k1m, k2: k2m, g: g}
-	pk := PK{b: b, q: q}
+	sk := SecretKey{k1: k[0], k2: k[1], g: g}
+	pk := PublicKey{b: b, q: q}
 
 	return sk, pk
 }
@@ -60,10 +66,8 @@ func GeneratePrime(b int64) *big.Int {
 	// q > 2^b
 	min := int(b) + 1
 	p, err := rand.Prime(rand.Reader, min)
-	em := "Error generating a prime number"
 	if err != nil {
-		em += err.Error()
-		panic(em)
+		panic(err.Error())
 	}
 
 	return p
