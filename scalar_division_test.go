@@ -11,9 +11,9 @@ func TestScalarDivision(t *testing.T) {
 	c := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 
 	m := NewMultivector(c)
-	q := big.NewInt(257)
+	pk := PK{q: big.NewInt(257)}
 	s := big.NewInt(12)
-	m = ScalarDivision(m, s, q)
+	m = ScalarDivision(pk, m, s)
 
 	if strings.Compare(m.E0.String(), "43") != 0 ||
 		strings.Compare(m.E1.String(), "193") != 0 ||
