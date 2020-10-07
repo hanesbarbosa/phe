@@ -7,7 +7,7 @@ func GeometricProduct(m1, m2 Multivector, q *big.Int) Multivector {
 	// Initialized coefficients
 	var m0 = []string{"0", "0", "0", "0", "0", "0", "0", "0"}
 
-	m := New(m0)
+	m := NewMultivector(m0)
 
 	c := [8]*big.Int{
 		new(big.Int),

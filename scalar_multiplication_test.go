@@ -10,7 +10,7 @@ import (
 func TestScalarMultiplication(t *testing.T) {
 	c := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 
-	m := New(c)
+	m := NewMultivector(c)
 	q := big.NewInt(257)
 	s := big.NewInt(12)
 	m = ScalarMultiplication(m, s, q)

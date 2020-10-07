@@ -9,7 +9,7 @@ import (
 func TestCloneMultivector(t *testing.T) {
 	c := []string{"40", "-29", "29", "-25", "33", "-29", "32", "-28"}
 
-	m := New(c)
+	m := NewMultivector(c)
 	mc := CloneMultivector(m)
 
 	if strings.Compare(m.E0.String(), mc.E0.String()) != 0 ||

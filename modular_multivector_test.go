@@ -10,7 +10,7 @@ import (
 func TestModularMultivector(t *testing.T) {
 	c := []string{"40", "29", "29", "25", "33", "9", "32", "28"}
 
-	m := New(c)
+	m := NewMultivector(c)
 
 	q := new(big.Int)
 	q.SetString("20", 10)

@@ -8,7 +8,7 @@ import (
 // Tests if the function is returning a multivector with rational coefficients.
 func TestNew(t *testing.T) {
 	n := []string{"12", "23", "34", "45", "56", "67", "78", "89"}
-	m := New(n)
+	m := NewMultivector(n)
 	// m.e0, m.e1, m.e2, m.e3, m.e12, m.e13, m.e23, m.e123
 	if strings.Compare(m.E0.String(), n[0]) != 0 ||
 		strings.Compare(m.E1.String(), n[1]) != 0 ||
@@ -23,13 +23,13 @@ func TestNew(t *testing.T) {
 }
 
 func TestToString(t *testing.T) {
-	m := New([]string{"12", "23", "34", "45", "56", "67", "78", "89"})
+	m := NewMultivector([]string{"12", "23", "34", "45", "56", "67", "78", "89"})
 
 	if strings.Compare(m.ToString(), "12e0+23e1+34e2+45e3+56e12+67e13+78e23+89e123") != 0 {
 		t.Errorf("Wrong formatting for multivector.")
 	}
 
-	m = New([]string{"12", "-23", "34", "45", "56", "-67", "78", "89"})
+	m = NewMultivector([]string{"12", "-23", "34", "45", "56", "-67", "78", "89"})
 
 	if strings.Compare(m.ToString(), "12e0+-23e1+34e2+45e3+56e12+-67e13+78e23+89e123") != 0 {
 		t.Errorf("Wrong formatting for multivector.")

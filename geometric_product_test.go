@@ -11,8 +11,8 @@ func TestGeometricProduct(t *testing.T) {
 	m0 := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 	s0 := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 
-	m1 := New(m0)
-	s1 := New(s0)
+	m1 := NewMultivector(m0)
+	s1 := NewMultivector(s0)
 	q := big.NewInt(257)
 
 	m := GeometricProduct(m1, s1, q)

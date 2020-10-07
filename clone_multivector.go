@@ -2,7 +2,7 @@ package phe
 
 // CloneMultivector clones a multivector.
 func CloneMultivector(m Multivector) Multivector {
-	mc := New([]string{
+	mc := NewMultivector([]string{
 		m.E0.String(),
 		m.E1.String(),
 		m.E2.String(),
