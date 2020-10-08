@@ -29,7 +29,7 @@ func GenerateKeys(l int64) (SecretKey, PublicKey) {
 
 	b = l / 8
 	g = GenerateIntegers(b, 1)[0]
-	q := GeneratePrime(b)
+	q := GenerateModulus(float64(b))
 
 	// Until both randomized keys k1 and k2 have inverse
 	for len(k) < 2 {
@@ -63,11 +63,24 @@ func GenerateIntegers(b int64, n int) []*big.Int {
 
 // GeneratePrime ...
 func GeneratePrime(b int64) *big.Int {
-	// q > 2^b
 	min := int(b) + 1
 	p, err := rand.Prime(rand.Reader, min)
 	if err != nil {
 		panic(err.Error())
+	}
+
+	return p
+}
+
+// GenerateModulus ...
+func GenerateModulus(b float64) *big.Int {
+	// q > 2^b
+	min := math.Pow(2, b)
+	p := big.NewInt(int64(min))
+	i := big.NewInt(1)
+
+	for !p.ProbablyPrime(0) {
+		p.Add(p, i)
 	}
 
 	return p
