@@ -46,7 +46,7 @@ func GenerateKeys(l int64) (SecretKey, PublicKey) {
 	return sk, pk
 }
 
-// GenerateIntegers ...
+// GenerateIntegers generates a big integer slice of b bits integers
 func GenerateIntegers(b int64, n int) []*big.Int {
 	// n cannot be 0
 	var s []*big.Int
@@ -61,7 +61,7 @@ func GenerateIntegers(b int64, n int) []*big.Int {
 	return s
 }
 
-// GeneratePrime ...
+// GeneratePrime generates a prime of b bits
 func GeneratePrime(b int64) *big.Int {
 	min := int(b) + 1
 	p, err := rand.Prime(rand.Reader, min)
@@ -72,7 +72,7 @@ func GeneratePrime(b int64) *big.Int {
 	return p
 }
 
-// GenerateModulus ...
+// GenerateModulus generates the smallest prime > 2^b
 func GenerateModulus(b float64) *big.Int {
 	// q > 2^b
 	min := math.Pow(2, b)
