@@ -15,19 +15,19 @@ func GenerateToken(sk1, sk2 SecretKey, pk1, pk2 PublicKey) Token {
 	var t1, t2, k11i, k12i Multivector
 	g1i := big.NewInt(0)
 
-	if pk1.b != pk2.b || pk1.q.Cmp(pk2.q) != 0 {
+	if pk1.B != pk2.B || pk1.Q.Cmp(pk2.Q) != 0 {
 		panic("old and new keys must have the same modulus and b-bits")
 	}
 
-	k11i = Inverse(sk1.k1, pk1.q)
-	k12i = Inverse(sk1.k2, pk2.q)
-	g1i = g1i.ModInverse(sk1.g, pk1.q)
+	k11i = Inverse(sk1.K1, pk1.Q)
+	k12i = Inverse(sk1.K2, pk2.Q)
+	g1i = g1i.ModInverse(sk1.G, pk1.Q)
 
-	t1 = GeometricProduct(sk2.k1, k11i, pk1.q)
-	t1 = ScalarMultiplication(t1, g1i, pk1.q)
-	t1 = ScalarMultiplication(t1, sk2.g, pk1.q)
+	t1 = GeometricProduct(sk2.K1, k11i, pk1.Q)
+	t1 = ScalarMultiplication(t1, g1i, pk1.Q)
+	t1 = ScalarMultiplication(t1, sk2.G, pk1.Q)
 
-	t2 = GeometricProduct(k12i, sk2.k2, pk2.q)
+	t2 = GeometricProduct(k12i, sk2.K2, pk2.Q)
 
 	t := Token{t1: t1, t2: t2}
 

@@ -8,20 +8,15 @@ import (
 
 // SecretKey is the secret key structure
 type SecretKey struct {
-	k1 Multivector
-	k2 Multivector
-	g  *big.Int
+	K1 Multivector
+	K2 Multivector
+	G  *big.Int
 }
 
 // PublicKey is the public key structure
 type PublicKey struct {
-	b int64
-	q *big.Int
-}
-
-// ToString writes a string version of the secret key
-func (sk *SecretKey) ToString() string {
-	return sk.k1.ToString() + "," + sk.k2.ToString() + "," + sk.g.String()
+	B int64
+	Q *big.Int
 }
 
 // GenerateKeys generates a secret key tuple SK and a public key tuple PK
@@ -45,8 +40,8 @@ func GenerateKeys(l int64) (SecretKey, PublicKey) {
 		}
 	}
 
-	sk := SecretKey{k1: k[0], k2: k[1], g: g}
-	pk := PublicKey{b: b, q: q}
+	sk := SecretKey{K1: k[0], K2: k[1], G: g}
+	pk := PublicKey{B: b, Q: q}
 
 	return sk, pk
 }

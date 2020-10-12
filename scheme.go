@@ -7,7 +7,7 @@ import (
 // Encrypt ...
 func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
 	// m0,...,m123 with the exception of m12
-	s := GenerateIntegers(pk.b, 8)
+	s := GenerateIntegers(pk.B, 8)
 	n := []string{s[0].String(), s[1].String(), s[2].String(), s[3].String(), s[4].String(), s[5].String(), s[6].String(), s[7].String()}
 
 	// m12
@@ -23,25 +23,25 @@ func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
 	s[4].Add(s[4], s[6])
 	s[4].Add(s[4], s[7])
 	s[4].Add(s[4], m)
-	s[4].Mod(s[4], pk.q)
+	s[4].Mod(s[4], pk.Q)
 
 	n[4] = s[4].String()
 
 	mv := NewMultivector(n)
-	mvp := ScalarMultiplication(mv, sk.g, pk.q)
-	cg := GeometricProduct(sk.k1, mvp, pk.q)
-	c := GeometricProduct(cg, sk.k2, pk.q)
+	mvp := ScalarMultiplication(mv, sk.G, pk.Q)
+	cg := GeometricProduct(sk.K1, mvp, pk.Q)
+	c := GeometricProduct(cg, sk.K2, pk.Q)
 
 	return c
 }
 
 // Decrypt ...
 func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Rat {
-	k1i := Inverse(sk.k1, pk.q)
-	k2i := Inverse(sk.k2, pk.q)
-	cg := GeometricProduct(k1i, c, pk.q)
-	mvp := GeometricProduct(cg, k2i, pk.q)
-	mv := ScalarDivision(pk, mvp, sk.g)
+	k1i := Inverse(sk.K1, pk.Q)
+	k2i := Inverse(sk.K2, pk.Q)
+	cg := GeometricProduct(k1i, c, pk.Q)
+	mvp := GeometricProduct(cg, k2i, pk.Q)
+	mv := ScalarDivision(pk, mvp, sk.G)
 
 	s := big.NewInt(0)
 	s.Add(mv.E0, mv.E1)
@@ -51,9 +51,9 @@ func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Rat {
 	s.Add(s, mv.E13)
 	s.Sub(s, mv.E23)
 	s.Sub(s, mv.E123)
-	s.Mod(s, pk.q)
+	s.Mod(s, pk.Q)
 
-	return ExtendedEuclideanAlgorithm(pk.q, s)
+	return ExtendedEuclideanAlgorithm(pk.Q, s)
 }
 
 // ExtendedEuclideanAlgorithm does...

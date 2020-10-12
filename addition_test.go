@@ -8,7 +8,7 @@ import (
 
 // Tests the addition of two multivectors.
 func TestAddition(t *testing.T) {
-	pk := PublicKey{q: big.NewInt(10)}
+	pk := PublicKey{Q: big.NewInt(10)}
 
 	m1 := NewMultivector([]string{"2", "3", "4", "5", "6", "7", "8", "9"})
 	m2 := NewMultivector([]string{"2", "3", "4", "5", "6", "7", "8", "9"})

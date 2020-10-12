@@ -6,7 +6,7 @@ import (
 
 // ScalarDivision makes the division between a multivector and a scalar.
 func ScalarDivision(pk PublicKey, m Multivector, s *big.Int) Multivector {
-	i := new(big.Int).ModInverse(s, pk.q)
+	i := new(big.Int).ModInverse(s, pk.Q)
 
 	m.E0.Mul(m.E0, i)
 	m.E1.Mul(m.E1, i)
@@ -17,5 +17,5 @@ func ScalarDivision(pk PublicKey, m Multivector, s *big.Int) Multivector {
 	m.E23.Mul(m.E23, i)
 	m.E123.Mul(m.E123, i)
 
-	return ModularMultivector(m, pk.q)
+	return ModularMultivector(m, pk.Q)
 }

@@ -13,5 +13,5 @@ func Addition(pk PublicKey, m1, m2 Multivector) Multivector {
 	m.E23.Add(m1.E23, m2.E23)
 	m.E123.Add(m1.E123, m2.E123)
 
-	return ModularMultivector(m, pk.q)
+	return ModularMultivector(m, pk.Q)
 }
