@@ -8,9 +8,7 @@ import (
 func Mean(pk PublicKey, ms []Multivector) Multivector {
 	n := len(ms)
 	d := big.NewInt(int64(n))
-	var m0 = []string{"0", "0", "0", "0", "0", "0", "0", "0"}
-
-	tm := NewMultivector(m0)
+	tm := NewMultivector([]string{"0", "0", "0", "0", "0", "0", "0", "0"})
 
 	for i := 0; i < n; i++ {
 		tm = Addition(pk, tm, ms[i])
