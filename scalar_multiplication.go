@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // ScalarMultiplication multiplies a multivector by a scalar.
-func ScalarMultiplication(m Multivector, s *big.Int, q *big.Int) Multivector {
+func ScalarMultiplication(m *Multivector, s *big.Int, q *big.Int) *Multivector {
 	m.E0.Mul(m.E0, s)
 	m.E1.Mul(m.E1, s)
 	m.E2.Mul(m.E2, s)

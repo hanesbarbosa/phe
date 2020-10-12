@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // Reverse of a multivector.
-func Reverse(m Multivector, q *big.Int) Multivector {
+func Reverse(m *Multivector, q *big.Int) *Multivector {
 	// pf = positive factor
 	pf := new(big.Int)
 	pf.SetString("1", 10)

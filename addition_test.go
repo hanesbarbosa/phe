@@ -13,7 +13,7 @@ func TestAddition(t *testing.T) {
 	m1 := NewMultivector([]string{"2", "3", "4", "5", "6", "7", "8", "9"})
 	m2 := NewMultivector([]string{"2", "3", "4", "5", "6", "7", "8", "9"})
 
-	m := Addition(pk, m1, m2)
+	m := Addition(&pk, m1, m2)
 
 	if strings.Compare(m.E0.String(), "4") != 0 ||
 		strings.Compare(m.E1.String(), "6") != 0 ||

@@ -5,7 +5,7 @@ import (
 )
 
 // CliffordConjugation gives the clifford of a multivector.
-func CliffordConjugation(m Multivector, q *big.Int) Multivector {
+func CliffordConjugation(m *Multivector, q *big.Int) *Multivector {
 	// pf = positive factor
 	pf := new(big.Int)
 	pf.SetString("1", 10)

@@ -5,7 +5,7 @@ import (
 )
 
 // Encrypt ...
-func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
+func Encrypt(sk *SecretKey, pk *PublicKey, m *big.Int) *Multivector {
 	// m0,...,m123 with the exception of m12
 	s := GenerateIntegers(pk.B, 8)
 	n := []string{s[0].String(), s[1].String(), s[2].String(), s[3].String(), s[4].String(), s[5].String(), s[6].String(), s[7].String()}
@@ -36,7 +36,7 @@ func Encrypt(sk SecretKey, pk PublicKey, m *big.Int) Multivector {
 }
 
 // Decrypt ...
-func Decrypt(sk SecretKey, pk PublicKey, c Multivector) *big.Rat {
+func Decrypt(sk *SecretKey, pk *PublicKey, c *Multivector) *big.Rat {
 	k1i := Inverse(sk.K1, pk.Q)
 	k2i := Inverse(sk.K2, pk.Q)
 	cg := GeometricProduct(k1i, c, pk.Q)

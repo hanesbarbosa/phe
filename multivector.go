@@ -18,7 +18,7 @@ type Multivector struct {
 }
 
 // NewMultivector creates a new multivector from string coefficients
-func NewMultivector(s []string) Multivector {
+func NewMultivector(s []string) *Multivector {
 	var c [8]*big.Int
 	var success bool
 
@@ -31,7 +31,7 @@ func NewMultivector(s []string) Multivector {
 		}
 	}
 
-	return Multivector{
+	return &Multivector{
 		E0:   c[0],
 		E1:   c[1],
 		E2:   c[2],
@@ -56,7 +56,7 @@ func (m *Multivector) ToString() string {
 }
 
 // StringToMultivector converts strings into multivectors
-func StringToMultivector(s string) Multivector {
+func StringToMultivector(s string) *Multivector {
 	c := regexp.MustCompile("e[0-3]+(\\+)?").Split(s, -1)
 	return NewMultivector(c)
 }

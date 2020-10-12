@@ -5,7 +5,7 @@ import (
 )
 
 // Mean calculates the average amount between multivectors
-func Mean(pk PublicKey, ms []Multivector) Multivector {
+func Mean(pk *PublicKey, ms []*Multivector) *Multivector {
 	n := len(ms)
 	d := big.NewInt(int64(n))
 	tm := NewMultivector([]string{"0", "0", "0", "0", "0", "0", "0", "0"})

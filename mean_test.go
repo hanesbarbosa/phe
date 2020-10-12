@@ -19,7 +19,7 @@ func TestMean(t *testing.T) {
 	c3 := Encrypt(sk, pk, m3)
 	c4 := Encrypt(sk, pk, m4)
 
-	ms := []Multivector{c1, c2, c3, c4}
+	ms := []*Multivector{c1, c2, c3, c4}
 	m := Mean(pk, ms)
 
 	rm := Decrypt(sk, pk, m)

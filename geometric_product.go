@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // GeometricProduct yields the geometric product of two multivectors
-func GeometricProduct(m1, m2 Multivector, q *big.Int) Multivector {
+func GeometricProduct(m1, m2 *Multivector, q *big.Int) *Multivector {
 	// Initialized coefficients
 	var m0 = []string{"0", "0", "0", "0", "0", "0", "0", "0"}
 

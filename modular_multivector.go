@@ -3,7 +3,7 @@ package phe
 import "math/big"
 
 // ModularMultivector calculates the modulus of a multivector.
-func ModularMultivector(m Multivector, q *big.Int) Multivector {
+func ModularMultivector(m *Multivector, q *big.Int) *Multivector {
 	m.E0.Mod(m.E0, q)
 	m.E1.Mod(m.E1, q)
 	m.E2.Mod(m.E2, q)
