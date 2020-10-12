@@ -19,6 +19,11 @@ type PublicKey struct {
 	Q *big.Int
 }
 
+// KeysToStrings ...
+func (sk *SecretKey) KeysToStrings() string {
+	return sk.K1.ToString() + "," + sk.K2.ToString()
+}
+
 // GenerateKeys generates a secret key tuple SK and a public key tuple PK
 func GenerateKeys(l int64) (*SecretKey, *PublicKey) {
 	var b int64
