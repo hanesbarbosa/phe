@@ -56,10 +56,14 @@ func GenerateIntegers(b int64, n int) []*big.Int {
 	// n cannot be 0
 	var s []*big.Int
 	var i *big.Int
-	max := int64(math.Pow(float64(2), float64(b)))
+
+	max := big.NewInt(0)
+	e := big.NewInt(b)
+
+	max.Exp(big.NewInt(2), e, nil)
 
 	for len(s) < n {
-		i, _ = rand.Int(rand.Reader, big.NewInt(max))
+		i, _ = rand.Int(rand.Reader, max)
 		s = append(s, i)
 	}
 
