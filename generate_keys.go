@@ -2,7 +2,6 @@ package phe
 
 import (
 	"crypto/rand"
-	"math"
 	"math/big"
 )
 
@@ -34,7 +33,7 @@ func GenerateKeys(l int64) (*SecretKey, *PublicKey) {
 
 	b = l / 8
 	g = GenerateIntegers(b, 1)[0]
-	q := GenerateModulus(float64(b))
+	q := GenerateModulus(b)
 
 	// Until both randomized keys k1 and k2 have inverse
 	for len(k) < 2 {
@@ -82,10 +81,11 @@ func GeneratePrime(b int64) *big.Int {
 }
 
 // GenerateModulus generates the smallest prime > 2^b
-func GenerateModulus(b float64) *big.Int {
+func GenerateModulus(b int64) *big.Int {
 	// q > 2^b
-	min := math.Pow(2, b)
-	p := big.NewInt(int64(min))
+	e := big.NewInt(b)
+	p := big.NewInt(0)
+	p.Exp(big.NewInt(2), e, nil)
 	i := big.NewInt(1)
 
 	for !p.ProbablyPrime(0) {
