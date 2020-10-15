@@ -2,7 +2,6 @@ package phe
 
 import (
 	"math/big"
-	"strings"
 )
 
 // Inverse gives the inverse of a multivector.
@@ -33,16 +32,11 @@ func DenominatorInverse(m *Multivector, q *big.Int) *big.Int {
 // HasInverse checks if a multivector (i.e: key) has inverse.
 // If so, the decryption can occur.
 func HasInverse(m *Multivector, q *big.Int) bool {
-	m1 := CloneMultivector(m)
-	mi := Inverse(m1, q)
-	gp := GeometricProduct(m, mi, q)
+	// m1 := CloneMultivector(m)
+	// mi := Inverse(m1, q)
+	// gp := GeometricProduct(m, mi, q)
+	e0 := Rationalize(m, q).E0
 
-	return (strings.Compare(gp.E0.String(), "1") == 0 &&
-		strings.Compare(gp.E1.String(), "0") == 0 &&
-		strings.Compare(gp.E2.String(), "0") == 0 &&
-		strings.Compare(gp.E3.String(), "0") == 0 &&
-		strings.Compare(gp.E12.String(), "0") == 0 &&
-		strings.Compare(gp.E13.String(), "0") == 0 &&
-		strings.Compare(gp.E23.String(), "0") == 0 &&
-		strings.Compare(gp.E123.String(), "0") == 0)
+	// After rationalizing m, if E0 is zero there is no inverse.
+	return !(e0.Cmp(big.NewInt(0)) == 0)
 }

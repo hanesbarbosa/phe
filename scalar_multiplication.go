@@ -1,6 +1,8 @@
 package phe
 
-import "math/big"
+import (
+	"math/big"
+)
 
 // ScalarMultiplication multiplies a multivector by a scalar.
 func ScalarMultiplication(m *Multivector, s *big.Int, q *big.Int) *Multivector {

@@ -7,12 +7,9 @@ import (
 // CliffordConjugation gives the clifford of a multivector.
 func CliffordConjugation(m *Multivector, q *big.Int) *Multivector {
 	// pf = positive factor
-	pf := new(big.Int)
-	pf.SetString("1", 10)
-
+	pf := big.NewInt(1)
 	// nf = negative factor
-	nf := new(big.Int)
-	nf.SetString("-1", 10)
+	nf := big.NewInt(-1)
 
 	m.E0.Mul(pf, m.E0)
 	m.E1.Mul(nf, m.E1)
