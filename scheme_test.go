@@ -74,7 +74,7 @@ func TestTokGenKeyUpd(t *testing.T) {
 	}
 }
 
-func TestTokGenKeyUpdString(t *testing.T) {
+func TestTokGenKeyUpdFromString(t *testing.T) {
 	sk1, pk1 := GenerateKeys(256)
 	m1 := big.NewInt(100)
 	c1 := Encrypt(sk1, pk1, m1)
@@ -82,8 +82,9 @@ func TestTokGenKeyUpdString(t *testing.T) {
 	sk2, pk2 := GenerateKeys(256)
 	tk := GenerateToken(sk1, sk2, pk1, pk2)
 	c2 := KeyUpdateFromString(pk1.Q.String(), tk.T1.ToString(), tk.T2.ToString(), c1.ToString())
+	c2m := StringToMultivector(c2)
 
-	rm1 := Decrypt(sk2, pk2, c2)
+	rm1 := Decrypt(sk2, pk2, c2m)
 
 	if strings.Compare(rm1.Num().String(), "100") != 0 {
 		t.Errorf("the generated token or key update mechanism changed the original message")

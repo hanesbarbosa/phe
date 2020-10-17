@@ -11,7 +11,7 @@ func KeyUpdate(pk *PublicKey, t *Token, c1 *Multivector) *Multivector {
 }
 
 // KeyUpdateFromString executes function KeyUpdate by string inputs.
-func KeyUpdateFromString(m string, t1 string, t2 string, c string) *Multivector {
+func KeyUpdateFromString(m string, t1 string, t2 string, c string) string {
 	q := big.NewInt(0)
 	q.SetString(m, 10)
 	t1m := StringToMultivector(t1)
@@ -21,5 +21,5 @@ func KeyUpdateFromString(m string, t1 string, t2 string, c string) *Multivector 
 	pk := &PublicKey{Q: q}
 	t := &Token{T1: t1m, T2: t2m}
 
-	return KeyUpdate(pk, t, c1m)
+	return KeyUpdate(pk, t, c1m).ToString()
 }
